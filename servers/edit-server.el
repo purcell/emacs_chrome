@@ -279,6 +279,7 @@ send a response back to the client."
 avoid the user being prompted to kill the edit-server process."
       (or edit-server-clients (edit-server-stop)))
 
+;;;###autoload
 (defun edit-server-start (&optional verbose)
   "Start the edit server.
 
@@ -397,12 +398,14 @@ non-nil, then STRING is also echoed to the message line."
       ;; look for "x-url" header
       (save-excursion
 	(goto-char (point-min))
-	(when (re-search-forward "^x-url: .*/\\{2,3\\}\\([^?\r\n]+\\)" nil t)
+	(when (re-search-forward "^x-url: .*/\\{2,3\\}\\([^?\r\n
+]+\\)" nil t)
 	  (setq edit-server-url (match-string 1))))
       ;; look for "x-file" header
       (save-excursion
 	(goto-char (point-min))
-	(when (re-search-forward "^x-file: \\([^?\r\n]+\\)" nil t)
+	(when (re-search-forward "^x-file: \\([^?\r\n
+]+\\)" nil t)
 	  (edit-server-log proc "Found x-file: %s" (match-string 1))
 	  (setq edit-server-file (match-string 1))))
       ;; look for head/body separator
